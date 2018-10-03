@@ -40,10 +40,10 @@ const te = new TypeEnforcement({
 
 // RFC 6265 4.1.1. Syntax
 
-const x00xA0 = /[\x00-\x1F\x7F-\xA0]/g;
+const octet = /[^\x21\x23-\x2B\x2D-\x3A\x3C-\x5B\x5D-\x7E]/g;
 
 const encodeCookieOctet = (str) => {
-  return encodeURIComponent(str.replace(x00xA0, ''));
+  return encodeURIComponent(str.replace(octet, ''));
 };
 
 
