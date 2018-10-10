@@ -42,8 +42,12 @@ const te = new TypeEnforcement({
 
 const octet = /[^\x21\x23-\x2B\x2D-\x3A\x3C-\x5B\x5D-\x7E]/g;
 
-const encodeCookieOctet = (str) => {
-  return encodeURIComponent(str.replace(octet, ''));
+const encodeCookieOctet = (value) => {
+  if (octet.test(value)) {
+    throw new Error(`Invalid character in value`);
+  }
+
+  return encodeURIComponent(value);
 };
 
 
