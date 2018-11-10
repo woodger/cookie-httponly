@@ -2,8 +2,8 @@
 
 <!-- [START badges] -->
 [![License](https://img.shields.io/npm/l/express.svg)](https://github.com/woodger/cookie-httponly/blob/master/LICENSE)
-<!--[![Node.js Version][node-version-image]][node-version-url]-->
 [![Build Status](https://travis-ci.com/woodger/cookie-httponly.svg?branch=master)](https://travis-ci.com/woodger/cookie-httponly)
+[![Build status](https://ci.appveyor.com/api/projects/status/44g2i6w363g51yc8?svg=true)](https://ci.appveyor.com/project/woodger/cookie-httponly)
 [![Coverage Status](https://coveralls.io/repos/github/woodger/cookie-httponly/badge.svg)](https://coveralls.io/github/woodger/cookie-httponly)
 [![Known Vulnerabilities](https://snyk.io/test/github/woodger/cookie-httponly/badge.svg?targetFile=package.json)](https://snyk.io/test/github/woodger/cookie-httponly?targetFile=package.json)
 <!-- [END badges] -->
@@ -42,9 +42,9 @@ location @nodejs {
 
 [class Cookie](#class-cookie)
   * [constructor: new Cookie(request, response)](#constructor-new-cookierequest-response)
-  * [cookie.has(name)](#cookiehasname))
-  * [cookie.get(name)](#cookiegetname))
-  * [cookie.set(name, value[, options])](#cookiesetname-value-options))
+  * [cookie.has(name)](#cookiehasname)
+  * [cookie.get(name)](#cookiegetname)
+  * [cookie.set(name, value[, options])](#cookiesetname-value-options)
   * [cookie.request](#cookierequest)
   * [cookie.response](#cookieresponse)
   * [cookie.entries](#cookieentries)
@@ -82,14 +82,14 @@ When the class instance is initialized successfully, the HTTP headers are read a
 #### cookie.has(name)
 
 - `name` <[String](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)>
-- returns: <[Boolean](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean)> A `true` if an element with the specified key exists in the [cookie.entries](#cookieentries); otherwise `false`.
+- returns: <[Boolean](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean)> A `true` if an element with the specified key exists in the `cookie.entries`; otherwise `false`.
 
 The method returns a Boolean value indicating whether or not an element with the specified key `name` exists from the `cookie.entries` field.
 
 #### cookie.get(name)
 
 - `name` <[String](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)>
-- returns: <[String](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String) | [undefined](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/undefined)> A `string` if an element with the specified key exists in the [cookie.entries](#cookieentries); otherwise `undefined`.
+- returns: <[String](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String) | [undefined](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/undefined)> A `string` if an element with the specified key exists in the `cookie.entries`; otherwise `undefined`.
 
 The method returns the value of the specified name from the `cookie.entries` field.
 
@@ -98,18 +98,18 @@ The method returns the value of the specified name from the `cookie.entries` fie
 - `name` <[String](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)> Invalid characters will be deleted or escaped.
 - `value` <[String](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)> Invalid characters will be deleted or escaped.
 - `options` <[Object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)>
-  - `domain` <[String](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)> The Domain attribute specifies those hosts to which the cookie will be sent.  For example, if the value of the Domain attribute is `'example.com'`, the user agent will include the cookie in the Cookie header when making HTTP(S) requests to `'example.com'`, `'www.example.com'`, and `'www.corp.example.com'`.
+  - `domain` <[String](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)> The `domain` option specifies those hosts to which the cookie will be sent. For example, if the value of the `domain` option is `'example.com'`, the user agent will include the cookie in the Cookie header when making HTTP(S) requests to `'example.com'`, `'www.example.com'`, and `'www.corp.example.com'`.
 
     > **NOTE** That a leading `'.'`, if present, is ignored even though that character is not permitted, but a trailing `'.'`, if present, will cause the user agent to ignore the attribute.
 
-    If the server omits the Domain attribute, the user agent will return the cookie only to the origin server. Domain matching the string is a host name (i.e., not an IP address). **Default:** `cookie.domain`.
+    If the server omits the `domain` options, the user agent will return the cookie only to the origin server. `Domain` matching the string is a host name (i.e., not an IP address). **Default:** `cookie.domain`.
   - `path` <[String](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)> Cookie path, use `'/'` as the path if you want your cookie to be accessible on all pages. **Default:** `'/'`.
   - `expires` <[Date](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date)> The Expires attribute indicates the date and time at which the cookie expires. **Default:** `current session`.
 
   > **NOTE** Typical session identifier might reasonably be set to expire in two weeks.
 - returns: <[undefined](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/undefined)>
 
-Installing HTTP(S) headers. Note that setting headers does not mean the appearance of values in the `cookie.entries` field. If there is a secure `https` connection, the method will automatically add the `security` flag to the headers.
+Installing HTTP(S) headers. Note that setting headers does not mean the appearance of values in the `cookie.entries` field. With the `https` secure connection, the method will automatically add the `security` flag to the headers.
 
 An example of setting the headers to record cookies for 1 year.
 
