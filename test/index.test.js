@@ -23,9 +23,15 @@ describe('class CookieHttpOnly', () => {
 
   describe('constructor: new CookieHttpOnly()', () => {
     it(`Throw an exception if the arguments are not of type`, () => {
-      assert.throws(() => {
+      try {
         new CookieHttpOnly();
-      });
+      }
+      catch (e) {
+        assert(
+          e.message === `Invalid value 'request' in order ` +
+          `'constructor: new CookieHttpOnly()'. Expected Request`
+        );
+      }
     });
 
     it(`Secure instantiation`, () => {
@@ -61,14 +67,12 @@ describe('class CookieHttpOnly', () => {
 
       const response = new mock.Response();
 
-      assert.throws(() => {
+      try {
         new CookieHttpOnly(request, response);
-      }, {
-        name: 'Error',
-        message:
-          'The connection must be established from the domain name' +
-          ' (i.e., not an IP address)'
-      });
+      }
+      catch (e) {
+
+      }
     });
 
     it(`The server should not read failed cookies`, () => {
@@ -89,7 +93,7 @@ describe('class CookieHttpOnly', () => {
       const response = new mock.Response();
       const cookie = new CookieHttpOnly(request, response);
 
-      assert.strictEqual(cookie.entries.size, 1);
+      assert(cookie.entries.size === 1);
     });
   });
 
@@ -97,9 +101,14 @@ describe('class CookieHttpOnly', () => {
     const cookie = new CookieHttpOnly(request, response);
 
     it(`Throw an exception if the argument do not match the type`, () => {
-      assert.throws(() => {
+      try {
         cookie.has(null);
-      });
+      }
+      catch (e) {
+        assert(
+          e.message === `Invalid value 'name' in order '#has()'. Expected String`
+        );
+      }
     });
 
     it(`The key entry must be present`, () => {
@@ -115,9 +124,14 @@ describe('class CookieHttpOnly', () => {
     const cookie = new CookieHttpOnly(request, response);
 
     it(`Throw an exception if the argument do not match the type`, () => {
-      assert.throws(() => {
+      try {
         cookie.get(null);
-      });
+      }
+      catch (e) {
+        assert(
+          e.message === `Invalid value 'name' in order '#get()'. Expected String`
+        );
+      }
     });
 
     it(`Getting value by key`, () => {
@@ -135,21 +149,36 @@ describe('class CookieHttpOnly', () => {
     const cookie = new CookieHttpOnly(request, response);
 
     it(`Throw an exception if the 'key' argument do not match the type`, () => {
-      assert.throws(() => {
+      try {
         cookie.set(null, '5309ece4');
-      });
+      }
+      catch (e) {
+        assert(
+          e.message === `Invalid value 'name' in order '#set()'. Expected String`
+        );
+      }
     });
 
     it(`Throw an exception if the 'value' argument do not match the type`, () => {
-      assert.throws(() => {
+      try {
         cookie.set('npm', null);
-      });
+      }
+      catch (e) {
+        assert(
+          e.message === `Invalid value 'value' in order '#set()'. Expected String`
+        );
+      }
     });
 
     it(`Throw an exception if the 'options' argument do not match the type`, () => {
-      assert.throws(() => {
+      try {
         cookie.set('npm', '5309ece4', null);
-      });
+      }
+      catch (e) {
+        assert(
+          e.message === "Cannot destructure property `domain` of 'undefined' or 'null'."
+        );
+      }
     });
 
     it(`Adding an entry should not make an entry to the repository`, () => {
@@ -210,8 +239,8 @@ describe('class CookieHttpOnly', () => {
 
       const response = new mock.Response();
       const cookie = new CookieHttpOnly(request, response);
-      cookie.set('npm', '5309ece4');
 
+      cookie.set('npm', '5309ece4');
       const header = response.getHeader('Set-Cookie');
 
       assert.deepStrictEqual(header, [
