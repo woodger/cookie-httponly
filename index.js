@@ -1,25 +1,21 @@
 /**
  * This module for Node.js® implemented by following the ECMAScript® 2018
- * Language Specification Standard.
+ * Language Specification Standard
  *
  * https://www.ecma-international.org/ecma-262/9.0/index.html
  *
  * This class implemented by following the RFC 6265
- * HTTP State Management Mechanism Standard.
+ * HTTP State Management Mechanism Standard
  *
  * https://tools.ietf.org/html/rfc6265.html
  */
-
-
 
 const http = require('http');
 const {URL} = require('url');
 const TypeEnforcement = require('type-enforcement');
 
-
-
 const te = new TypeEnforcement({
-  'constructor: new Cookie()': {
+  'constructor: new CookieHttpOnly()': {
     request: http.IncomingMessage,
     response: http.ServerResponse
   },
@@ -50,12 +46,9 @@ const encodeCookieOctet = (value) => {
   return encodeURIComponent(value);
 };
 
-
-
-
 class CookieHttpOnly {
   constructor(request, response) {
-    let err = te.validate('constructor: new Cookie()', {
+    const err = te.validate('constructor: new CookieHttpOnly()', {
       request,
       response
     });
@@ -68,7 +61,7 @@ class CookieHttpOnly {
     this.response = response;
     this.entries = new Map();
 
-    let [domain, port = 80] = this.request.headers.host.split(':');
+    const [domain, port = 80] = this.request.headers.host.split(':');
 
     // RFC 6265 5.1.3 Domain Matching
 
@@ -87,11 +80,11 @@ class CookieHttpOnly {
 
     // Read cookies
 
-    let {cookie = ''} = this.request.headers;
-    let pairs = cookie.split('; ');
+    const {cookie = ''} = this.request.headers;
+    const pairs = cookie.split('; ');
 
     for (let i of pairs) {
-      let index = i.indexOf('=');
+      const index = i.indexOf('=');
 
       if (index === -1) {
         continue;
@@ -107,10 +100,8 @@ class CookieHttpOnly {
     }
   }
 
-
-
   has(name) {
-    let err = te.validate('#has()', {
+    const err = te.validate('#has()', {
       name
     });
 
@@ -121,10 +112,8 @@ class CookieHttpOnly {
     return this.entries.has(name);
   }
 
-
-
   get(name) {
-    let err = te.validate('#get()', {
+    const err = te.validate('#get()', {
       name
     });
 
@@ -135,16 +124,14 @@ class CookieHttpOnly {
     return this.entries.get(name);
   }
 
-
-
   set(name, value, {domain = this.domain, path = '/', expires} = {}) {
-    let now = new Date();
+    const now = new Date();
 
     if (expires === undefined) {
       expires = now;
     }
 
-    let err = te.validate('#set()', {
+    const err = te.validate('#set()', {
       name,
       value,
       path,
