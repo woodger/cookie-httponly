@@ -85,7 +85,7 @@ describe('class CookieHttpOnly', () => {
 
       const request = new mock.Request({
         headers: {
-          host: 'example.com:443',
+          host: 'example.com',
           cookie: 'git=041ab08b; lang'
         }
       });
@@ -167,6 +167,15 @@ describe('class CookieHttpOnly', () => {
         assert(
           e.message === `Invalid value 'value' in order '#set()'. Expected String`
         );
+      }
+    });
+
+    it(`Throw an exception if the 'value' contained invalid character`, () => {
+      try {
+        cookie.set('npm', '"5309ece4');
+      }
+      catch (e) {
+        assert(e.message === 'Invalid character in value');
       }
     });
 
